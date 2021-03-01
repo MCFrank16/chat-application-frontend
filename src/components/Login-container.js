@@ -2,30 +2,25 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import useToken from './useToken';
 
-
 const LoginUser = async (credentials) => {
 
-	// const result = await fetch('http://localhost:9000/create/user', {
-	// 	method: 'POST',
-	// 	// mode: 'no-cors',
-	// 	headers: {
-	// 		'Access-Control-Allow-Origin': '*',
-	// 		'Content-Type': 'application/json'
-	// 	},
-	// 	body: JSON.stringify(credentials)
-	// });
+	console.log(process.env.PROD_URL);
 
-	// const result = await fetch('https://realtime-chat-ossix.herokuapp.com', {
-	// 	method: 'GET',
-	// 	headers: {
-	// 		'Access-Control-Allow-Origin': '*',
-	// 		'Content-Type': 'application/json'
-	// 	}
-	// })
-	return {
-		status: 200,
-		token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiTUNGcmFuazE2IiwiaWF0IjoxNjE0NjAyMzUyLCJleHAiOjE2MTQ2ODg3NTJ9.3fFb7ZUC_IJwgJth-lK3J3V4ToNSvVEX3wC_54_plLI"
-	};
+	const result = await fetch(`https://realtime-chat-ossix.herokuapp.com/create/user`, {
+		method: 'POST',
+		headers: {
+			'Access-Control-Allow-Origin': '*',
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify(credentials)
+	});
+
+	console.log(result);
+
+	// return {
+	// 	status: 200,
+	// 	token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiTUNGcmFuazE2IiwiaWF0IjoxNjE0NjAyMzUyLCJleHAiOjE2MTQ2ODg3NTJ9.3fFb7ZUC_IJwgJth-lK3J3V4ToNSvVEX3wC_54_plLI"
+	// };
 }
 
 const LoginContainer = () => {
