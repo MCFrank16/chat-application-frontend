@@ -5,8 +5,13 @@ import axios from '../axios';
 
 
 const LoginUser = async (credentials) => {
-	const result = await axios.post('/login/user', JSON.stringify(credentials));
-	return result.data;
+	try {
+		const result = await axios.post('/login/user', JSON.stringify(credentials));
+	    return result.data;
+	} catch (error) {
+		console.log(error.response.status)
+		return error.response.status;
+	}
 }
 
 const LoginContainer = () => {
@@ -15,17 +20,21 @@ const LoginContainer = () => {
 
 	const [username, setUserName] = useState('');
 	const [password, setPassword] = useState('');
+	const [error, setError] = useState();
 
 	const handleSubmit = async e => {
 		e.preventDefault();
 
-		const { token } = await LoginUser({
+		const data = await LoginUser({
 			username,
 			password
 		});
-		setToken(token);
-		
-		return window.location = "/chat"
+
+		if (data.token){
+			setToken(data.token);
+			return window.location = "/chat"
+		}
+        setError('Wrong username or password. Try again.');
 	}
 
     
@@ -34,6 +43,7 @@ const LoginContainer = () => {
             <header className="start-header">
 				<h1><i className="fas fa-comments"></i> Cata </h1>
 			</header>
+			<p className="error" id="error">{error}</p>
             <main className="start-main">
 				<form onSubmit={handleSubmit}>
 					<div className="form-control">

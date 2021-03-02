@@ -5,7 +5,8 @@
 	--background-color: #4D426D;
   --container-color: #5D4F82;
   --white-color: #fff;
-	--send-button-color: #3CC6B7;
+  --send-button-color: #3CC6B7;
+  --error-color: #e52d2d;
 }
 
 * {
@@ -30,6 +31,12 @@ body {
 	font-size: 17px;
 }
 
+.error{
+  text-align: center;
+  font-size: 15px;
+  color: var(--error-color);
+}
+
  /* start page styling */
 
 .start-container {
@@ -45,7 +52,7 @@ body {
 }
 
 .start-main {
-	padding: 30px 40px;
+	padding: 20px 40px;
 }
 
 .start-main .form-control {

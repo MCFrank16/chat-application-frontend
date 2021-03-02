@@ -14,7 +14,7 @@ function App() {
         <Switch>
           <Route path="/" exact component={!token ? LoginContainer : ChatBox } />
           <Route path ='/register' exact component={!token ? RegisterContainer : ChatBox} />
-          <Route path="/chat" exact component={ChatBox} />
+          <Route path="/chat" exact component={!token ? LoginContainer : ChatBox} />
         </Switch>
       </Router>
     </div>
