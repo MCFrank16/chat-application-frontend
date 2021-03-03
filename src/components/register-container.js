@@ -5,8 +5,13 @@ import useToken from './useToken';
 import axios from '../axios';
 
 const registerUser = async (credentials) => {
-	const result = await axios.post('/create/user', JSON.stringify(credentials));
+
+	try {
+		const result = await axios.post('/create/user', JSON.stringify(credentials));
 	return result.data;
+	} catch (error) {
+		return error.response.status;
+	}
 }
 
 const RegisterContainer = () => {

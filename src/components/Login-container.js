@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import useToken from './useToken';
 import axios from '../axios';
@@ -7,9 +7,9 @@ import axios from '../axios';
 const LoginUser = async (credentials) => {
 	try {
 		const result = await axios.post('/login/user', JSON.stringify(credentials));
+		console.log(result)
 	    return result.data;
 	} catch (error) {
-		console.log(error.response.status)
 		return error.response.status;
 	}
 }
@@ -30,14 +30,15 @@ const LoginContainer = () => {
 			password
 		});
 
-		if (data.token){
+		if (data === 401){
+			setError('Wrong username or password. Try again.')
+		} else {
 			setToken(data.token);
-			return window.location = "/chat"
+			return window.location = '/chat';
 		}
-        setError('Wrong username or password. Try again.');
+        
 	}
 
-    
     return (
         <div className="start-container">
             <header className="start-header">
