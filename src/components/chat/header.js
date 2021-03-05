@@ -14,6 +14,7 @@ const LogoutUser = async (token) => {
         });
         return result.data;
     } catch (error) {
+        console.log(error)
         return error.response.status;
     }
     
@@ -35,7 +36,7 @@ const Header = () => {
     return (
         <div className="header">
             <h1 className="logo"><i className="fas fa-comments"></i> Cata </h1>
-            <Link onClick={handleClick} className="logout">Logout</Link>
+            <Link to="#" onClick={handleClick} className="logout">Logout</Link>
         </div>
     )
 }

@@ -4,18 +4,40 @@ import Header from './header';
 import Conversation from './conversation';
 import NewConversation from './new-conversation';
 import Online from './online-users';
-import io from 'socket.io-client';
 
-let socket;
+import useToken from '../useToken';
+import axios from '../../axios';
 
 const Chatbox = () => {
+    const { token } = useToken();
     const [change, setChange] = useState(false);
-    const endpoint = 'localhost:9000';
+    const [conversations, setConversations] = useState([]);
+    const [defaultActive, setDefault] = useState('');
+    const [users, setUsers] = useState([]);
 
-    // useEffect(() => {
-    //     socket = io(endpoint);
-    //     console.log(socket);
-    // }, [endpoint])
+    useEffect(() => {
+        const getConversations = async () => {
+            const result = await axios.get('/all/conversations', {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+            setDefault(result.data.conversations[0].convoid)
+            setConversations(result.data.conversations);
+        }
+
+        const getOnlineUsers = async () => {
+            const result = await axios.get('/online/users', {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            setUsers(result.data.rows);
+        }
+        getOnlineUsers();
+        getConversations();
+
+    }, [token]);
 
     return (
         <div className="chat">
@@ -24,12 +46,8 @@ const Chatbox = () => {
                 <div className="search-container">
                     <p>{!change ? 'Conversations' : 'Online Users'}</p>
                 </div>
-                {!change ? <Conversation /> : <Online />}
+                {!change ? <Conversation conversations={conversations} defaultActive={defaultActive} /> : <Online users={users} />}
                 <NewConversation change={change} setChange={setChange} />
-                <div className="chat-title">
-                    <span> Frank Mutabazi</span>
-                    <i class="fas fa-trash" aria-hidden="true"></i>
-                </div>
                 <div className="chat-message-list">
 
                     <div className="message-row other-message">
@@ -65,8 +83,8 @@ const Chatbox = () => {
 
                 </div>
                 <div className="chat-form">
-                    <input id="msg" type="text" placeholder="Type a message" required autocomplete="off"/>
-                    <i class="fas fa-paper-plane" />
+                    <input id="msg" type="text" placeholder="Type a message" required autoComplete="off"/>
+                    <i className="fas fa-paper-plane" />
                 </div>
             </div>
 

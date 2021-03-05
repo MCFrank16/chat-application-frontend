@@ -1,23 +1,32 @@
-import React from 'react'
+import axios from '../../axios';
+import makeInitials from '../../makeInitials';
+import useToken from '../useToken';
 
-const OnlineUsers = () => {
+const OnlineUsers = ({ users }) => {
+    const { token } = useToken();
+
+    const startConvo = async (id) => {
+        await axios.post('/create/conversation', {
+            secondID: id,
+        }, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+    }
+
     return (
         <div className="conversation-list">
-            <div className="conversation active">
-                <span className="initial">FM</span>
-                <div className="title-name">Frank Mutabazi</div>
-            </div>
+            {users.map((user) => {
+                return (
+                    <div className="conversation" key={user.id} onClick={() => startConvo(user.id)}>
+                        <span className="initial">{makeInitials(`${user.firstname} ${user.lastname}`)}</span>
+                        <div className="title-text">{user.username}</div>
+                        <div className="conversation-message">{`${user.firstname} ${user.lastname}`}</div>
+                    </div>
+                )
 
-            <div className="conversation">
-                <span className="initial">FM</span>
-                <div className="title-name">Frank Mutabazi</div>
-            </div>
-
-            <div className="conversation">
-                <span className="initial">FM</span>
-                <div className="title-name">Frank Mutabazi</div>
-            </div>
-
+            })}
         </div>
     )
 }

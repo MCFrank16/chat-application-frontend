@@ -5,7 +5,6 @@ import LoginContainer from './components/Login-container';
 import RegisterContainer from './components/register-container';
 import ChatBox from './components/chat/index';
 import useToken from './components/useToken';
-import useSocket from './components/useSocket';
 
 function App() {
   const { token } = useToken();

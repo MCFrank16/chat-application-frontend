@@ -202,7 +202,8 @@ input:focus{
   padding: 10px;
   font-size: 1.3rem;
   border-radius: 100%;
-  background-color:  var(--send-button-color)
+  background-color:  var(--send-button-color);
+  text-align: center;
 }
 
 .title-text{
@@ -212,7 +213,13 @@ input:focus{
   padding-left: 10px;
   white-space: nowrap;
   overflow-x: hidden;
-  text-overflow: ellipsis;
+  /* text-overflow: ellipsis; */
+}
+
+.no-users {
+  text-align: center;
+  margin: 20px;
+  font-size: 1.5rem;
 }
 
 .title-name{
@@ -281,6 +288,11 @@ input:focus{
 
 .chat-title > i {
   cursor: pointer;
+  margin-top: 20px;
+}
+
+.status { 
+  font-size: 13px;
 }
 
 .chat-message-list{
