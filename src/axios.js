@@ -5,21 +5,5 @@ const request = axios.create({
     baseURL: 'http://localhost:9000'
 });
 
-// class AxiosInit {
-//     constructor(){
-//         this.axios = axios.create({
-//             baseURL: 'http://localhost:9000'
-//         });
-//     }
-
-//     async getConversations(token){
-//        return await this.axios.get('/all/conversations', {
-//            headers: {
-//                 'Authorization': `Bearer ${token}`
-//            }
-//        })
-//     }
-// }
-
 export default request;
 

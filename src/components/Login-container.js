@@ -7,7 +7,6 @@ import axios from '../axios';
 const LoginUser = async (credentials) => {
 	try {
 		const result = await axios.post('/login/user', JSON.stringify(credentials));
-		console.log(result)
 	    return result.data;
 	} catch (error) {
 		return error.response.status;

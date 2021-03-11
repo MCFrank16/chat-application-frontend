@@ -8,7 +8,7 @@ const ChatTitle = ({ keyActive }) => {
         const getUserDetails = async () => {
             await axios.get('/get/details', {
                 params: {
-                    userID: keyActive
+                    userId: keyActive
                 }
             })
         }

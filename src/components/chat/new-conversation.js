@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-const Newconversation = ({ setChange, change }) => {
+const Newconversation = ({ change, setChange }) => {
     const [button, setButton] = useState('+');
     
     const changeEffect = (e) => {
