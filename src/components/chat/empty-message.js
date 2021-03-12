@@ -1,11 +1,10 @@
 import React from 'react';
+import image from '../../assets/check-this.png'
 
 const EmptyMessage = () => {
     return (
-        <div>
-            you don't have any message yet click here 
-            to start a conversation by checking 
-            all online users.
+        <div className="image-container">
+            <img className="image" src={image} alt="start conversation" />
         </div>
     )
 }
