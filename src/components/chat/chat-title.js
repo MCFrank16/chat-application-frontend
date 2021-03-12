@@ -1,24 +1,33 @@
 import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import axios from '../../axios';
 
-const ChatTitle = ({ keyActive }) => {
+const ChatTitle = ({ active }) => {
     const [Details, setDetails] = useState('');
+    const username = useSelector(state => state.conversations.conversations[0].second_participant)
 
     useEffect(() => {
         const getUserDetails = async () => {
-            await axios.get('/get/details', {
-                params: {
-                    userId: keyActive
-                }
-            })
+            try {
+                const {data: { user }} = await axios.get('/get/details', {
+                    params: {
+                        username
+                    }
+                });
+                setDetails(user)
+            } catch (error) {
+                console.log(error)
+            }
         }
-        getUserDetails();
-    })
+
+        getUserDetails()
+    }, [username])
+
     return (
         <div className="chat-title">
-            <span> {keyActive}</span>
+            <span>{Details.username}</span>
             <i className="fas fa-trash" aria-hidden="true"></i>
-            <span className = "status"> online </span>
+            <span className = "status">{Details.status}</span>
         </div>
     )
 }

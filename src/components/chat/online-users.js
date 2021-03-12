@@ -5,7 +5,7 @@ import useToken from '../useToken';
 import { selectAllOnlineUsers, fetchOnlineUsers } from '../../redux/slices/onlineUsersSlice';
 
 
-const OnlineUsers = () => {
+const OnlineUsers = ({ setChange, change }) => {
     const { token } = useToken();
     const onlineUserStateStatus = useSelector(state => state.onlineUsers.status);
     const users = useSelector(selectAllOnlineUsers);
@@ -26,8 +26,14 @@ const OnlineUsers = () => {
             body: JSON.stringify({ secondName: username })
         });
 
-        const resp = await response.json();
-        console.log(resp);
+        const { status } = await response.json();
+        
+        if (status === 201){
+            window.location.reload(false);
+        } else {
+            setChange(!change)
+        }
+    
     }
 
     return (
