@@ -2,25 +2,26 @@ import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import axios from '../../axios';
 
-const ChatTitle = ({ active }) => {
+const ChatTitle = () => {
     const [Details, setDetails] = useState('');
-    const username = useSelector(state => state.conversations.conversations[0].second_participant)
+    
+    const username = 'MCFrank16'
 
     useEffect(() => {
-        const getUserDetails = async () => {
-            try {
-                const {data: { user }} = await axios.get('/get/details', {
-                    params: {
-                        username
-                    }
-                });
-                setDetails(user)
-            } catch (error) {
-                console.log(error)
-            }
-        }
+        // const getUserDetails = async () => {
+        //     try {
+        //         const {data: { user }} = await axios.get('/get/details', {
+        //             params: {
+        //                 username
+        //             }
+        //         });
+        //         setDetails(user)
+        //     } catch (error) {
+        //         console.log(error)
+        //     }
+        // }
 
-        getUserDetails()
+        // getUserDetails()
     }, [username])
 
     return (

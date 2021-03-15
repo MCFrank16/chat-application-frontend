@@ -1,21 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import axios from '../../axios';
-
 import useToken from '../useToken';
 
 
 const LogoutUser = async (token) => {
     try {
-        const result = await axios.get('/logout', {
+        const result = await fetch('/logout', {
+            method: 'GET',
             headers: {
                 'authorization': `Bearer ${token}`
             }
         });
-        return result.data;
+        return await result.json();
     } catch (error) {
         console.log(error)
-        return error.response.status;
+        return error;
     }
     
 }
@@ -24,8 +23,8 @@ const Header = () => {
     const { deleteToken, token } = useToken();
     const handleClick = async (e) => {
         e.preventDefault();
-        const data = await LogoutUser(token);
-        if (data === 500) {
+        const { status } = await LogoutUser(token);
+        if (status === 500) {
            return;
         } else {
             deleteToken();
