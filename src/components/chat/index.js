@@ -6,7 +6,6 @@ import NewConversation from './new-conversation';
 import Online from './online-users';
 
 const Chatbox = () => {
-
     const [change, setChange] = useState(false);
 
     return (
